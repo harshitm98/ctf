@@ -1,6 +1,6 @@
 # Android CTF — KGB Messenger
 
-This is a write up of an open source CTF practice challenge. The aim of this CTF is to learn how to reverse engineer an Android Application. You can find the CTF link here.
+This is a write up of an open source CTF practice challenge. The aim of this CTF is to learn how to reverse engineer an Android Application. You can find the CTF link [here](https://github.com/tlamb96/kgb_messenger).
 
 *Note: This was originally written on [Medium](https://medium.com/@fake_batman_/android-ctf-kgb-messenger-d9069f4cedf8) and has been converted to markdown using [mediumexporter](https://github.com/xdamman/mediumexporter)*
 
