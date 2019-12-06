@@ -1,7 +1,8 @@
-
 # Android CTF — KGB Messenger
 
 This is a write up of an open source CTF practice challenge. The aim of this CTF is to learn how to reverse engineer an Android Application. You can find the CTF link here.
+
+*Note: This was originally written on [Medium](https://medium.com/@fake_batman_/android-ctf-kgb-messenger-d9069f4cedf8) and has been converted to markdown using [mediumexporter](https://github.com/xdamman/mediumexporter)*
 
 ### Tools used
 
@@ -33,7 +34,8 @@ We convert to jar because then we can use **JD-GUI** to see Java code.
 
 Using **JD-GUI**, we open the kgb-jar.jar created by the dex2jar (previous command).
 
-![**Note**: I downloaded JD-GUI and created a directory called tools and move it to that directory](https://cdn-images-1.medium.com/max/2000/1*-PNbYjV-6jDsq1ISkKAvnA.png)***Note**: I downloaded JD-GUI and created a directory called tools and move it to that directory*
+![**Note**: I downloaded JD-GUI and created a directory called tools and move it to that directory](https://cdn-images-1.medium.com/max/2000/1*-PNbYjV-6jDsq1ISkKAvnA.png)
+***Note**: I downloaded JD-GUI and created a directory called tools and move it to that directory*
 
 ### **Launching the app now**
 
@@ -47,7 +49,8 @@ To see what is causing this error, we need to see which Activity is being launch
 
 Using vim editor, we open AndroidManifest.xml
 
-![Snippet of part of AndroidManifest.xml](https://cdn-images-1.medium.com/max/2000/1*oVI2pqnG3OaqOWbwKL1JRA.png)*Snippet of part of AndroidManifest.xml*
+![Snippet of part of AndroidManifest.xml](https://cdn-images-1.medium.com/max/2000/1*oVI2pqnG3OaqOWbwKL1JRA.png)
+*Snippet of part of AndroidManifest.xml*
 
 MainActivity is the activity that is launched first. So use JD-GUI to view MainActivity.class
 
@@ -79,21 +82,26 @@ We see that the name is **“User”** and type is **“string”**. So we searc
 
 *To capture the second flag we need to go to the next activity, that is LoginActivity.*
 
-![onCreate method of MainActivity](https://cdn-images-1.medium.com/max/2000/1*hI8Kajk8qBuNzrs2IQxABA.png)*onCreate method of MainActivity*
+![onCreate method of MainActivity](https://cdn-images-1.medium.com/max/2000/1*hI8Kajk8qBuNzrs2IQxABA.png)
+*onCreate method of MainActivity*
 
 In order to get to LoginActivity, we need to find a way to get through both if conditions or we could just remove them.
 
 Let’s open the .smali version of MainActivity.class to remove the code responsible for both if conditions.
 
-![Smali version of first condition](https://cdn-images-1.medium.com/max/2000/0*eqJBxvnnE2HQL2tz)*Smali version of first condition*
+![Smali version of first condition](https://cdn-images-1.medium.com/max/2000/0*eqJBxvnnE2HQL2tz)
+*Smali version of first condition*
 
-![Smali version of second condition](https://cdn-images-1.medium.com/max/2000/0*LoOSIYFg4CN0OeVw)*Smali version of second condition*
+![Smali version of second condition](https://cdn-images-1.medium.com/max/2000/0*LoOSIYFg4CN0OeVw)
+*Smali version of second condition*
 
 ### Getting rid of both conditions
 
-![Selecting the code for removal](https://cdn-images-1.medium.com/max/2000/0*maA0rMCkgZiglXk_)*Selecting the code for removal*
+![Selecting the code for removal](https://cdn-images-1.medium.com/max/2000/0*maA0rMCkgZiglXk_)
+*Selecting the code for removal*
 
-![After removal](https://cdn-images-1.medium.com/max/2000/0*FEm9b0f8VqTC-5AU)*After removal*
+![After removal](https://cdn-images-1.medium.com/max/2000/0*FEm9b0f8VqTC-5AU)
+*After removal*
 
 *Note: Make sure after removing your code looks this and ends with goto :go_to_0*
 
@@ -107,7 +115,8 @@ After making the changes we need to build the apk. So we build the apk using Apk
 
 We cannot directly install the apk. We need to [sign](http://www.androiddocs.com/tools/publishing/app-signing.html) them first. However, since we are not the original developers of this app, we will Uber Apk Signer for this purpose.
 
-![**Note:** I downloaded Uber Apk Signer and created a directory called tools and move it to that directory](https://cdn-images-1.medium.com/max/2000/0*S4gIFG1JJDynyUND)***Note:** I downloaded Uber Apk Signer and created a directory called tools and move it to that directory*
+![**Note:** I downloaded Uber Apk Signer and created a directory called tools and move it to that directory](https://cdn-images-1.medium.com/max/2000/0*S4gIFG1JJDynyUND)
+***Note:** I downloaded Uber Apk Signer and created a directory called tools and move it to that directory*
 
 ### Installing and running the modified apk
 
@@ -125,7 +134,8 @@ Inside onLogin method, we have two edit text who are converted to string. EditTe
 
 We look at the first nested if condition, string n is being compared to a resource with id 2131158450. So we convert it to hex code again and check if we can find the corresponding string name.
 
-![Finding the **username** value by using id which is found using hex code of 2131158450](https://cdn-images-1.medium.com/max/2000/1*CuTQtfLwnPq9Ig-DFRx8Dg.png)*Finding the **username** value by using id which is found using hex code of 2131158450*
+![Finding the **username** value by using id which is found using hex code of 2131158450](https://cdn-images-1.medium.com/max/2000/1*CuTQtfLwnPq9Ig-DFRx8Dg.png)
+*Finding the **username** value by using id which is found using hex code of 2131158450*
 
 So the username is **codenameduchess**.
 
@@ -150,15 +160,18 @@ We try to find the value of hash from strings.xml and would use findmyhashto fin
 We get hash value in the strings.xml, but when we try to use findmyhash to find the hash’s original value, we do not get any results. 
 The question did say that we would have to use social engineering to get the password. So we try googling **codenameduchess**.
 
-![Google result for codenameduchess](https://cdn-images-1.medium.com/max/2000/0*pQfTGuSgeW_bAWoS)*Google result for codenameduchess*
+![Google result for codenameduchess](https://cdn-images-1.medium.com/max/2000/0*pQfTGuSgeW_bAWoS)
+*Google result for codenameduchess*
 
 The name of account **‘Sterling Archer’** also checks out with the first flag. So we take a look at it’s twitter account.
 
-![Twitter page for codenameduchess (Sterling Archer)](https://cdn-images-1.medium.com/max/2462/0*5efkfUlhLBwWccQC)*Twitter page for codenameduchess (Sterling Archer)*
+![Twitter page for codenameduchess (Sterling Archer)](https://cdn-images-1.medium.com/max/2462/0*5efkfUlhLBwWccQC)
+*Twitter page for codenameduchess (Sterling Archer)*
 
 It looks like it is a character of a TV show. We now try to Google for codename duchess password.
 
-![Google result for codename duchess password](https://cdn-images-1.medium.com/max/2000/0*kCTg8tkgzelbTbQr)*Google result for codename duchess password*
+![Google result for codename duchess password](https://cdn-images-1.medium.com/max/2000/0*kCTg8tkgzelbTbQr)
+*Google result for codename duchess password*
 
 We open the PDF, and search through it for password.
 
@@ -184,7 +197,8 @@ So the reason we were not able to find the result was the hash we had was incomp
 
 So we open MessageActivity using JD-GUI, we take a look at the source code.
 
-![Function onSendMessage from MessageActivity](https://cdn-images-1.medium.com/max/2000/0*LMB1vOs34Zg_KVtC)*Function onSendMessage from MessageActivity*
+![Function onSendMessage from MessageActivity](https://cdn-images-1.medium.com/max/2000/0*LMB1vOs34Zg_KVtC)
+*Function onSendMessage from MessageActivity*
 
 Whenever we send the message, onSendMessage function is called, and the text entered using EditText is converted to String str.
 
@@ -202,15 +216,27 @@ Now, let’s take a look at function a
 
 Function a** **returns string. In this function, the value of string passed as an argument obtained by:
 
-![Visual representation of the function a](https://cdn-images-1.medium.com/max/2000/1*WNgLkw-NgbZvZJ3sfACG8g.png)*Visual representation of the function a*
+![Visual representation of the function a](https://cdn-images-1.medium.com/max/2000/1*WNgLkw-NgbZvZJ3sfACG8g.png)
+*Visual representation of the function a*
 
 So, the value of **p** equals to the parameter string passed to this function **a**. So, we can reverse engineer the original value of **p** by doing these steps in reverse. As we know (A XOR B) XOR B = A, we can use this to find the original value of the string:
 
-![Visual representation of function where we XOR again](https://cdn-images-1.medium.com/max/2000/1*vC6PV5N1cytGKcOEcW_lvw.png)*Visual representation of function where we XOR again*
+![Visual representation of function where we XOR again](https://cdn-images-1.medium.com/max/2000/1*vC6PV5N1cytGKcOEcW_lvw.png)
+*Visual representation of function where we XOR again*
 
 We recreate this above algorithm using Python:
 
-<iframe src="https://medium.com/media/76f05b42c19d854017dbfbce8738f8c0" frameborder=0></iframe>
+```
+p = "V@]EAASB\022WZF\022e,a$7(&am2(3.\003"
+p = list(str(p))
+
+for i in range(len(p) // 2):
+	p[i] = chr(ord(p[i]) ^ 0x32)
+	p[len(p) // 2 + 1 + i] = chr(ord(p[len(p) // 2 + 1 + i]) ^ 0x41)
+
+p.reverse()
+print("".join(p))
+```
 
 When we run this file, we get
 
@@ -222,17 +248,31 @@ So we enter this string as the input for the EditText of the app:
 
 Similarly, the input from the EditText is passed through function b and check if it equals to string r.
 
-![The value of String r](https://cdn-images-1.medium.com/max/2000/1*Gr-cQn_dQSM88B4JbftQWQ.png)*The value of String r*
+![The value of String r](https://cdn-images-1.medium.com/max/2000/1*Gr-cQn_dQSM88B4JbftQWQ.png)
+*The value of String r*
 
-![Function b whose returned value is compared to String r](https://cdn-images-1.medium.com/max/2000/0*kDT9QhVm015Q5pY6)*Function b whose returned value is compared to String r*
+![Function b whose returned value is compared to String r](https://cdn-images-1.medium.com/max/2000/0*kDT9QhVm015Q5pY6)
+*Function b whose returned value is compared to String r*
 
 While converting the smali code to java class, there seems to be some problem. The code can be refactored so it can be better understood.
 
-![Just a readable version of function b](https://cdn-images-1.medium.com/max/2000/0*LSNKMof9nI_hhx0W)*Just a readable version of function b*
+![Just a readable version of function b](https://cdn-images-1.medium.com/max/2000/0*LSNKMof9nI_hhx0W)
+*Just a readable version of function b*
 
 Here it is not possible to reverse engineer, so we try to brute force our way in. We check for what values of loop iterable i and alphabet, we get the output r.
 
-<iframe src="https://medium.com/media/a2ab97938f1c71b25ef3c6194cdc40bc" frameborder=0></iframe>
+```
+import string
+
+r = "\000dslp}oQ\000 dks$|M\000h +AYQg\000P*!M$gQ\000"
+r = list(str(r))
+r.reverse()
+
+for i in range(len(r)):
+	if i % 8 == 0:
+		print("_", end="")
+		continue 
+```
 
 After running this file, we get the output.
 
