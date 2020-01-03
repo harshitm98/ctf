@@ -3,7 +3,11 @@
 
 CyberTruck Challenge 2019 is a premier event to bring together a community of interest related to heavy vehicle cybersecurity issued and develop talent to address those challenges. This is a write up for their CTF. Their website can be found here and the Github profile for the challenge can found here.
 
+*Note: This was originally written on [Medium](https://medium.com/bugbountywriteup/cybertruck-challenge-2019-android-ctf-e39c7f796530) and has been converted to markdown using [mediumexporter](https://github.com/xdamman/mediumexporter)*
+
 *Note: I was not present during the event. All I wanted to do was practice Android CTFs and that’s when I came across their [Github page](https://github.com/nowsecure/cybertruckchallenge19).*
+
+
 
 ### Tools used
 
@@ -172,7 +176,3 @@ So that’s my solution for this CTF. I am still new to CTFs and have a lot to l
 Thanks for reading my write-up! Cheers! 🍺
 
 Follow me on [Twitter](https://twitter.com/fake_batman_), [Github](https://github.com/harshitm98) or connect on [LinkedIn](https://linkedin.com/in/harshitm98).
-
-*Follow [Infosec Write-ups ](https://medium.com/bugbountywriteup)for more such awesome write-ups.*
-[**InfoSec Write-ups**
-*A collection of write-ups from the best hackers in the world on topics ranging from bug bounties and CTFs to vulnhub…*medium.com](https://medium.com/bugbountywriteup)
